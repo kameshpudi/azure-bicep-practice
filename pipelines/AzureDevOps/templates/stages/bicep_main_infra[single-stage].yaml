@@ -1,0 +1,17 @@
+parameters:
+- name: envShortDisplayName
+  default: ''
+- name: stageDepOn
+  default: ''
+
+stages:
+- stage: pre_main_infra
+  displayName: ${{ parameters.envShortDisplayName }} pre main infra
+  dependsOn: ${{ parameters.stageDepOn }}
+  jobs:
+  - job: 'deploy_azure'
+    displayName: ${{ parameters.envShortDisplayName }} deploy tf backend
+    steps:
+    - template: '../templates/deploy_infra.yaml'
+      parameters:
+        configurationPath: $(System.DefaultWorkingDirectory)/Module-demo/main.bicep

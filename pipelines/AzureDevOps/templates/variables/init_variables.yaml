@@ -1,0 +1,26 @@
+
+variables:
+# Call the common template to define the branch workflow
+  - name: individualBranch
+    value: 'refs/heads/individual/kamesh'
+  - name: isIndividualBranch
+    value: ${{ startsWith(variables['Build.SourceBranch'], variables.individualBranch) }}
+  - name: isMainBranch
+    value: ${{ eq(variables['Build.SourceBranch'], 'refs/heads/main') }}
+    # Loading pipeline library groups depending on the branch
+  - ${{ if eq(variables.isIndividualBranch, true) }}:
+      - group: cop_hub_infra_group_individual_${{ replace(variables.individualBranch,'refs/heads/individual/','') }}
+      - name: envShortDisplayName
+        value: "[${{ replace(variables.individualBranch,'refs/heads/individual/','') }}]"
+  - ${{ if eq(variables.isPullRequest, true) }}:
+      - group: cop_hub_infra_main_group
+      - name: envShortDisplayName
+        value: '[MAIN]'      
+# Service Connection
+  - name: currentServiceConnection
+    value: $(CURRENT_SERVICE_CONNECTION) # From library groups
+  - name: rgName
+    value: 'rg-$(projectName)-$(productName)-$(ENVIRONMENT)'
+  - name: location
+    value: "$(location)"
+    

@@ -1,0 +1,24 @@
+steps:
+  - script: |
+      echo "staticvar ${{variables['build.sourceBranch']}}"
+      echo "staticvar ${{variables['build.sourceBranchName']}}"
+      echo "$(System.DefaultWorkingDirectory)"
+    displayName: 'echo vars'
+  - task: Bash@3
+    displayName: 'Bicep Build'
+    inputs:
+      targetType: inline
+      script: |
+        #!/bin/bash
+        az bicep build --file ${{ parameters.configurationPath }}
+  - task: AzureCLI@2
+    displayName: Deploy Bicep Configuration
+    inputs:
+      azureSubscription: $(currentServiceConnection)
+      scriptType: 'bash'
+      scriptLocation: inlineScript
+      addSpnToEnvironment: true
+      inlineScript: |
+        #!/bin/bash
+        az group create -l $(location) -n $(rgName) 
+        az deployment group create -f ${{ parameters.configurationPath }} -g $(rgName)

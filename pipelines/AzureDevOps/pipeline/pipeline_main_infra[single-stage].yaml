@@ -1,0 +1,10 @@
+trigger: none
+
+variables:
+  - template: '../templates/variables/init_variables.yaml'
+  
+stages:
+- template: '../templates/stages/tf_main_infra[single-stage].yaml'
+  parameters:
+    envShortDisplayName: ${{variables.envShortDisplayName }}
+    stageDepOn: ''
