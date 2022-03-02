@@ -12,7 +12,7 @@ variables:
       - group: cop_hub_infra_group_individual_${{ replace(variables.individualBranch,'refs/heads/individual/','') }}
       - name: envShortDisplayName
         value: "[${{ replace(variables.individualBranch,'refs/heads/individual/','') }}]"
-  - ${{ if eq(variables.isPullRequest, true) }}:
+  - ${{ if eq(variables.isMainBranch, true) }}:
       - group: cop_hub_infra_main_group
       - name: envShortDisplayName
         value: '[MAIN]'      

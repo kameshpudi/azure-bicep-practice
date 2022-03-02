@@ -12,6 +12,6 @@ stages:
   - job: 'deploy_azure'
     displayName: ${{ parameters.envShortDisplayName }} deploy tf backend
     steps:
-    - template: '../templates/deploy_infra.yaml'
+    - template: '../steps/deploy_infra.yaml'
       parameters:
         configurationPath: $(System.DefaultWorkingDirectory)/Module-demo/main.bicep
