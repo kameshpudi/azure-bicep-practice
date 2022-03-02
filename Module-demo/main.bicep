@@ -7,7 +7,7 @@ var appServicePlanName = 'toy-product-launch-plan-starter-kk'
   'prod'
   'nonprod'
 ])
-param environmentType string
+param environmentType string= 'nonprod'
 var storageAccountSKU = (environmentType == 'prod') ? 'Standard_GRS' : 'Standard_LRS'
 
 resource storageaccount 'Microsoft.Storage/storageAccounts@2021-02-01' = {

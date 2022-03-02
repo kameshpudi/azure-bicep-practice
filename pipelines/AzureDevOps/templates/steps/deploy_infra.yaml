@@ -3,6 +3,8 @@ steps:
       echo "staticvar ${{variables['build.sourceBranch']}}"
       echo "staticvar ${{variables['build.sourceBranchName']}}"
       echo "$(System.DefaultWorkingDirectory)"
+      echo "RG Name$(rgName)"
+      echo "Location $(defaultLocation)"
     displayName: 'echo vars'
   - task: Bash@3
     displayName: 'Bicep Build'
@@ -20,5 +22,5 @@ steps:
       addSpnToEnvironment: true
       inlineScript: |
         #!/bin/bash
-        az group create -l $(location) -n $(rgName) 
+        az group create -l $(defaultLocation) -n $(rgName) 
         az deployment group create -f ${{ parameters.configurationPath }} -g $(rgName)

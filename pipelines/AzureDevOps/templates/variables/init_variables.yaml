@@ -20,7 +20,7 @@ variables:
   - name: currentServiceConnection
     value: $(CURRENT_SERVICE_CONNECTION) # From library groups
   - name: rgName
-    value: 'rg-$(projectName)-$(productName)-$(ENVIRONMENT)'
-  - name: location
-    value: "$(location)"
+    value: "rg-$(projectName)-$(productName)-$(ENVIRONMENT)"
+  - name: defaultLocation
+    value: "$(DEFAULT_LOCATION)"
     
